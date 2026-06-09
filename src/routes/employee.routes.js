@@ -9,10 +9,17 @@ import {getEmployeesByDate} from "../controllers/employee.controller.js";
 import {createEmployee} from "../controllers/employee.controller.js";
 import {updateEmployee} from "../controllers/employee.controller.js";
 import {deleteEmployee} from "../controllers/employee.controller.js";
+import { authenticateToken } from "../middleware/auth.middleware.js";
+import { authorize } from "../middleware/role.middleware.js";
+import { getMyProfile } from "../controllers/employee.controller.js";
+import { getDepartmentEmployees } from "../controllers/employee.controller.js";
 
 const router = express.Router();
 
-router.get("/", getEmployees);
+router.get("/", 
+    authenticateToken,
+    authorize("ADMIN"),
+    getEmployees);
 
 router.get("/active", getActiveEmployees);
 
@@ -24,12 +31,35 @@ router.get("/salary", getEmployeesBySalary);
 
 router.get("/date", getEmployeesByDate);
 
+router.get(
+    "/me",
+    authenticateToken,
+    authorize("EMPLOYEE"),
+    getMyProfile
+);
+
+router.get(
+    "/department-members",
+    authenticateToken,
+    authorize("MANAGER"),
+    getDepartmentEmployees
+);
+
 router.get("/:id", getEmployeeById);
 
-router.post("/", createEmployee);
+router.post("/",
+    authenticateToken,
+    authorize("ADMIN"),
+     createEmployee);
 
-router.put("/:id", updateEmployee);
+router.put("/:id",
+    authenticateToken,
+    authorize("ADMIN"),
+    updateEmployee);
 
-router.delete("/:id", deleteEmployee);
+router.delete("/:id",
+    authenticateToken,
+    authorize("ADMIN"),
+    deleteEmployee);
 
 export default router;

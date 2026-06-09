@@ -9,95 +9,194 @@
   },
   "item": [
     {
-      "name": "Get All Employees",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:3000/employees",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "3000",
-          "path": [
-            "employees"
-          ]
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\":\"admin@test.com\",\r\n  \"password\":\"123456\",\r\n  \"role\":\"ADMIN\",\r\n  \"employee_id\":\"employee_uuid\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\":\"admin@test.com\",\r\n  \"password\":\"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
         }
-      },
-      "response": []
+      ]
     },
     {
-      "name": "Get Employee By ID",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Get All Employees",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/employees",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "employees"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Employee",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Update Employee",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Soft Delete Employee",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
     },
     {
-      "name": "Create Employee",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
+      "name": "Employee",
+      "item": [
+        {
+          "name": "Get My Profile",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
     },
     {
-      "name": "Update Employee",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
+      "name": "Manager",
+      "item": [
+        {
+          "name": "Department Employees",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
     },
     {
-      "name": "Soft Delete Employee",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
-    },
-    {
-      "name": "Get Active Employees",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
-    },
-    {
-      "name": "Search Employees",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
-    },
-    {
-      "name": "Filter By Department",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
-    },
-    {
-      "name": "Sort By Salary",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
-    },
-    {
-      "name": "Sort By Date",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
+      "name": "Other APIs",
+      "item": [
+        {
+          "name": "Get Active Employees",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Filter By Department",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Sort By Salary",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Get Employee By ID",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Search Employees",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Sort By Date",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }

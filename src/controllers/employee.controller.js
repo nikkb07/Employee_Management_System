@@ -1,5 +1,75 @@
 import pool from "../config/db.js";
 
+//Access of Manager
+export const getDepartmentEmployees = async(req,res)=>{
+    try{
+        //Query Manager
+        const manager = await pool.query(
+            `
+            SELECT * FROM employees
+            WHERE id = $1
+            `,
+            [req.user.employee_id]
+        );
+
+        //Manaher Exists?
+        if(manager.rows.length === 0){
+            return res.status(404).json({
+                message: "Manager Not Found"
+            });
+        }
+
+
+        //Get departmentId
+        const departmentId= manager.rows[0].department_id;
+
+        //Query Employees
+        const employees = await pool.query(
+            `
+            SELECT *
+            FROM employees
+            WHERE department_id = $1
+            `,
+            [departmentId]
+        );
+
+        //RETURN employees
+        res.json(employees.rows)
+
+    }
+    catch(error){
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
+//Getting own profile
+export const getMyProfile = async(req,res)=>{
+    try{
+        const employeeId = req.user.employee_id;
+        const result = await pool.query(
+
+            `
+            SELECT * FROM employees
+            WHERE id=$1
+            `,[employeeId]
+        );
+            if(result.rows.length === 0){
+            return res.status(404).json({
+                message: "Employee Not Found"
+            });
+        }
+        res.json(result.rows[0]);
+
+    }
+    catch(error){
+        res.status(500).json({
+            message:error.message
+        });
+    }
+}
+
 //Get All Employees with Pagination
 export const getEmployees = async(req,res) =>{
     try{
@@ -69,10 +139,13 @@ export const getEmployeesByDepartment = async(req,res) =>{
 
         const result = await pool.query(
             `
-            SELECT * FROM  employees
-            WHERE department ILIKE $1
+            SELECT e.*
+            FROM employees e
+            JOIN departments d
+            ON e.department_id = d.id
+            WHERE d.name ILIKE $1
             `,
-            [department]
+            [`%${department}%`]
         );
         res.json(result.rows);
     }
@@ -146,17 +219,16 @@ export const getEmployeesByDate = async(req, res) => {
 
 //Create Employee
 export const createEmployee = async(req, res) => {
-    console.log(req.body);
     try{
   const {
     first_name,
     last_name,
     email,
-    department,
+    department_id,
     salary
   } = req.body;
 
-  if (!first_name || !last_name || !email || !department || !salary) {
+  if (!first_name || !last_name || !email || !department_id || !salary) {
     return res.status(400).json({
         message: "All fields are required"
     });
@@ -180,7 +252,7 @@ export const createEmployee = async(req, res) => {
       first_name,
       last_name,
       email,
-      department,
+      department_id,
       salary
     )
     VALUES
@@ -191,7 +263,7 @@ export const createEmployee = async(req, res) => {
       first_name,
       last_name,
       email,
-      department,
+      department_id,
       salary
     ]
   );
@@ -219,7 +291,7 @@ export const updateEmployee = async(req, res) => {
     first_name,
     last_name,
     email,
-    department,
+    department_id,
     salary
 } = req.body;
     const result = await pool.query(
@@ -230,7 +302,7 @@ export const updateEmployee = async(req, res) => {
       first_name = $1,
       last_name = $2,
       email = $3,
-      department = $4,
+      department_id = $4,
       salary = $5,
       updated_at = CURRENT_TIMESTAMP
     WHERE id = $6
@@ -240,7 +312,7 @@ export const updateEmployee = async(req, res) => {
         first_name,
         last_name,
         email,
-        department,
+        department_id,
         salary,
         id
     ]
