@@ -2,6 +2,11 @@ import express from "express";
 import { getDashboard } from "../controllers/dashboard.controller.js";
 
 const router = express.Router()
-router.get("/" , getDashboard);
+router.get(
+  "/",
+  authenticateToken,
+  authorizeRoles("ADMIN", "MANAGER"),
+  getDashboard
+);
 
 export default router;
