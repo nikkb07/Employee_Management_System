@@ -1,0 +1,286 @@
+# Employee Management System
+
+## Overview
+
+Employee Management System built using Node.js, Express.js, and PostgreSQL.
+
+The project provides Employee Management APIs with Authentication, Authorization, Role-Based Access Control (RBAC), Employee Management Operations, and Dashboard Analytics.
+
+---
+
+## Features
+
+### Authentication
+
+* User Registration
+* User Login
+* JWT Authentication
+* bcrypt Password Hashing
+
+### Role-Based Access Control (RBAC)
+
+Supported Roles:
+
+* ADMIN
+* MANAGER
+* EMPLOYEE
+
+#### Admin Permissions
+
+* Create Employee
+* Update Employee
+* Delete Employee
+* View All Employees
+
+#### Manager Permissions
+
+* View Employees Within Their Department
+
+#### Employee Permissions
+
+* View Own Profile
+
+---
+
+## Employee Features
+
+* Create Employee
+* Get Employee By ID
+* Get All Employees
+* Update Employee
+* Soft Delete Employee
+* Search Employees
+* Filter Employees By Department
+* Sort Employees By Salary
+* Sort Employees By Created Date
+* View Active Employees
+* Pagination
+
+---
+
+## Dashboard Analytics
+
+### Employee Overview
+
+* Total Employees
+* Active Employees
+* Inactive Employees
+
+### Department Analytics
+
+* Employee Count by Department
+* Active Employees by Department
+
+### Salary Analytics
+
+* Total Salary
+* Average Salary
+* Highest Salary
+* Lowest Salary
+
+### Employee Joining Trends
+
+* Month-wise Employee Onboarding Statistics
+
+### Dashboard Endpoint
+
+GET /api/dashboard
+
+Returns all dashboard metrics in a single response.
+
+---
+
+## Tech Stack
+
+* Node.js
+* Express.js
+* PostgreSQL
+* pg
+* JWT
+* bcrypt
+* dotenv
+
+---
+
+## Database Design
+
+### Departments
+
+| Column | Type         |
+| ------ | ------------ |
+| id     | UUID         |
+| name   | VARCHAR(100) |
+
+### Employees
+
+| Column        | Type          |
+| ------------- | ------------- |
+| id            | UUID          |
+| first_name    | VARCHAR(100)  |
+| last_name     | VARCHAR(100)  |
+| email         | VARCHAR(200)  |
+| department_id | UUID          |
+| salary        | DECIMAL(10,2) |
+| is_active     | BOOLEAN       |
+| created_at    | TIMESTAMP     |
+| updated_at    | TIMESTAMP     |
+
+### Users
+
+| Column      | Type         |
+| ----------- | ------------ |
+| id          | UUID         |
+| email       | VARCHAR(200) |
+| password    | VARCHAR(255) |
+| role        | VARCHAR(20)  |
+| employee_id | UUID         |
+| created_at  | TIMESTAMP    |
+
+---
+
+## API Endpoints
+
+### Authentication
+
+#### Register
+
+POST /auth/register
+
+#### Login
+
+POST /auth/login
+
+---
+
+### Employee APIs
+
+#### Get All Employees
+
+GET /employees
+
+#### Get Employee By ID
+
+GET /employees/:id
+
+#### Create Employee
+
+POST /employees
+
+#### Update Employee
+
+PUT /employees/:id
+
+#### Soft Delete Employee
+
+DELETE /employees/:id
+
+#### Active Employees
+
+GET /employees/active
+
+#### Search Employees
+
+GET /employees/search
+
+#### Filter By Department
+
+GET /employees/department
+
+#### Sort By Salary
+
+GET /employees/salary
+
+#### Sort By Date
+
+GET /employees/date
+
+#### Employee Profile
+
+GET /employees/me
+
+#### Department Members
+
+GET /employees/department-members
+
+---
+
+### Dashboard Analytics
+
+#### Get Dashboard Metrics
+
+GET /api/dashboard
+
+Returns:
+
+* Employee Overview
+* Department Analytics
+* Salary Analytics
+* Employee Joining Trends
+
+---
+
+## Environment Variables
+
+Create a `.env` file:
+
+```env
+PORT=3000
+
+DB_USER=your_db_user
+DB_PASSWORD=your_db_password
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=your_db_name
+
+JWT_SECRET=your_secret_key
+```
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+---
+
+## Run Project
+
+Development Mode:
+
+```bash
+npm run dev
+```
+
+Production Mode:
+
+```bash
+npm start
+```
+
+---
+
+## Future Improvements
+
+* Dashboard Authorization (ADMIN / MANAGER Access)
+* Input Validation Improvements
+* API Documentation (Swagger)
+* Automated Testing
+* Deployment
+* Query Optimization
+* CI/CD Pipeline
+
+---
+
+## Author
+
+Built as part of a Backend Development and Employee Management System project using Node.js, Express.js, PostgreSQL, JWT Authentication, and RBAC.
